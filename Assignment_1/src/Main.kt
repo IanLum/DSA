@@ -59,7 +59,7 @@ fun part2(lines: List<String>): Int {
  * Tests part1 with the given test case. Prints whether the test passed or failed.
  */
 fun test1() {
-    val lines = File("Assignment 1/day1_test.txt").readLines()
+    val lines = File("data/day1_test.txt").readLines()
     if (part1(lines) == 142) {
         println("Test 1 Passed :)")
     } else {
@@ -71,7 +71,7 @@ fun test1() {
  * Tests part1 with the given test case. Prints whether the test passed or failed.
  */
 fun test2() {
-    val lines = File("Assignment 1/day1pt2_test.txt").readLines()
+    val lines = File("data/day1pt2_test.txt").readLines()
     if (part2(lines) == 281) {
         println("Test 2 Passed :)")
     } else {
@@ -80,7 +80,7 @@ fun test2() {
 }
 
 fun main() {
-    val lines = File("Assignment 1/day1_input.txt").readLines()
+    val lines = File("data/day1_input.txt").readLines()
     test1()
     test2()
     println("Solution to Part 1: ${part1(lines)}")
