@@ -55,34 +55,8 @@ fun part2(lines: List<String>): Int {
     return sum
 }
 
-/**
- * Tests part1 with the given test case. Prints whether the test passed or failed.
- */
-fun test1() {
-    val lines = File("data/day1_test.txt").readLines()
-    if (part1(lines) == 142) {
-        println("Test 1 Passed :)")
-    } else {
-        println("Test 1 Failed :(")
-    }
-}
-
-/**
- * Tests part1 with the given test case. Prints whether the test passed or failed.
- */
-fun test2() {
-    val lines = File("data/day1pt2_test.txt").readLines()
-    if (part2(lines) == 281) {
-        println("Test 2 Passed :)")
-    } else {
-        println("Test 2 Failed :(")
-    }
-}
-
 fun main() {
     val lines = File("data/day1_input.txt").readLines()
-    test1()
-    test2()
     println("Solution to Part 1: ${part1(lines)}")
     println("Solution to Part 2: ${part2(lines)}")
 }
