@@ -10,6 +10,12 @@ fun main() {
                 myList.add(i)
             }
         }
-        println("$arraySize $timeTaken ${timeTaken/arraySize}")
+        val timeBad = measureTime {
+            for (i in 0..<arraySize) {
+                myList.add(i, bad = true)
+            }
+        }
+        println("Good: $arraySize $timeTaken ${timeTaken/arraySize}")
+        println("Bad: $arraySize $timeBad ${timeBad/arraySize}")
     }
 }

@@ -5,9 +5,9 @@ class MyMutableIntList {
     /**
      * Add [element] to the end of the list
      */
-    fun add(element: Int) {
+    fun add(element: Int, bad: Boolean = false) {
         if (s == array.size) {
-            array = array.copyOf(array.size * 2)
+            array = array.copyOf(if (!bad) (array.size * 2) else (array.size + 1))
         }
         array[s] = element
         s++
