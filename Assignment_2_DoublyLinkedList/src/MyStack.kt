@@ -5,9 +5,7 @@ class MyStack<T>: Stack<T> {
         list.pushFront(data)
     }
 
-    override fun pop(): T? {
-        return list.popFront()
-    }
+    override fun pop(): T? = list.popFront()
 
     override fun peek(): T? = list.peekFront()
 
