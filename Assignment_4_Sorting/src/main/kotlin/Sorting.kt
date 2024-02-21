@@ -40,8 +40,19 @@ fun merge(part1: MutableList<Int>, part2: MutableList<Int>): List<Int> {
     return out
 }
 
-fun mergeSort(data: MutableList<Int>): MutableList<Int> {
-    TODO()
+fun mergeSort(data: List<Int>): List<Int> {
+    var partitions = data.chunked(1)
+    while (partitions.size > 1) {
+        val newPartitions = mutableListOf<List<Int>>()
+        partitions.chunked(2).forEach {
+            if (it.size == 2)
+                newPartitions.add(merge(it[0].toMutableList(), it[1].toMutableList()))
+            else
+                newPartitions.add(it[0])
+        }
+        partitions = newPartitions
+    }
+    return partitions[0]
 }
 
 fun radixSort(data: MutableList<Int>): MutableList<Int> {
