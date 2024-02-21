@@ -55,6 +55,23 @@ fun mergeSort(data: List<Int>): List<Int> {
     return partitions[0]
 }
 
-fun radixSort(data: MutableList<Int>): MutableList<Int> {
-    TODO()
+fun radixSort(data: List<Int>): List<Int> {
+    var list = data.toMutableList()
+    var divisor = 1
+    while (true) {
+        val buckets = List(10) { mutableListOf<Int>() }
+        var end = true
+        // Add values to buckets
+        list.forEach {
+            with(it.floorDiv(divisor)) {
+                // If any values is still greater than [divisor], continue
+                if (this > 0) end = false
+                buckets[this % 10].add(it)
+            }
+        }
+        list = buckets.flatten().toMutableList()
+        divisor *= 10
+        if (end) break
+    }
+    return list
 }
