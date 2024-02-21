@@ -52,7 +52,7 @@ fun mergeSort(data: List<Int>): List<Int> {
         }
         partitions = newPartitions
     }
-    return partitions[0]
+    return partitions.getOrElse(0) { mutableListOf<Int>() }
 }
 
 fun radixSort(data: List<Int>): List<Int> {
