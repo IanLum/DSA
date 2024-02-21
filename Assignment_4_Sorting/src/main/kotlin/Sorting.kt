@@ -1,17 +1,17 @@
 package org.example
 
-fun selectionSort(data: Array<Int>): Array<Int> {
+fun selectionSort(data: MutableList<Int>): MutableList<Int> {
     TODO()
 }
 
-fun quickSort(data: Array<Int>): Array<Int> {
+fun quickSort(data: MutableList<Int>): MutableList<Int> {
     TODO()
 }
 
-fun mergeSort(data: Array<Int>): Array<Int> {
+fun mergeSort(data: MutableList<Int>): MutableList<Int> {
     TODO()
 }
 
-fun radixSort(data: Array<Int>): Array<Int> {
+fun radixSort(data: MutableList<Int>): MutableList<Int> {
     TODO()
 }
