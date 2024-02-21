@@ -29,6 +29,17 @@ fun quickSort(data: List<Int>): List<Int> {
     return quickSort(headPartition) + data[0] + quickSort(tailPartition)
 }
 
+fun merge(part1: MutableList<Int>, part2: MutableList<Int>): List<Int> {
+    val out = mutableListOf<Int>()
+    while (part1.isNotEmpty() or part2.isNotEmpty()) {
+        if ((part1.firstOrNull() ?: Int.MAX_VALUE) < (part2.firstOrNull() ?: Int.MAX_VALUE))
+            out.add(part1.removeFirst())
+        else
+            out.add(part2.removeFirst())
+    }
+    return out
+}
+
 fun mergeSort(data: MutableList<Int>): MutableList<Int> {
     TODO()
 }
