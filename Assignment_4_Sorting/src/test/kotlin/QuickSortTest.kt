@@ -2,7 +2,6 @@ import org.sorting.quickSort
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
-import org.sorting.selectionSort
 
 class QuickSortTest {
 
