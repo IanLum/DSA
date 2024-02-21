@@ -31,4 +31,11 @@ class SelectionSortTest {
         val exp = mutableListOf(3,3,3,3,4,4,4)
         assertEquals(exp, selectionSort(l))
     }
+
+    @Test
+    fun empty() {
+        val l = mutableListOf<Int>()
+        val exp = mutableListOf<Int>()
+        assertEquals(exp, selectionSort(l))
+    }
 }
