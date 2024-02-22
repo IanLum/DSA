@@ -1,6 +1,6 @@
 package org.example
 
 fun main() {
-    val a = mutableListOf(-1,2,5,-10,-5,13,-2,5)
-    println(maxSubsequence(a))
+    val a = intArrayOf(1,100,1,1,1,100,1,1,100,1)
+    println(Stairclimbing.stairclimbing(a))
 }
