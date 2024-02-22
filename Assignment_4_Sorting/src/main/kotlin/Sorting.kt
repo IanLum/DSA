@@ -3,13 +3,14 @@ package org.sorting
 import java.util.*
 
 fun selectionSort(data: List<Int>): List<Int> {
-    for (startIdx in data.indices) {
-        var min = Pair(startIdx, data[startIdx])
-        for ((idx, num) in data.drop(startIdx).withIndex())
+    val list = data.toList()
+    for (startIdx in list.indices) {
+        var min = Pair(startIdx, list[startIdx])
+        for ((idx, num) in list.drop(startIdx).withIndex())
             if (num < min.second) min = Pair(idx+startIdx, num)
-        Collections.swap(data, startIdx, min.first)
+        Collections.swap(list, startIdx, min.first)
     }
-    return data
+    return list
 }
 
 fun quickSort(data: List<Int>): List<Int> {
