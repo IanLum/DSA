@@ -4,7 +4,7 @@
 
 I tested the sorting algorithms by having them sort random lists of numbers of different length. These lengths were 100, 500, 1000, 5000, and 9000. 9000 was chosen as the upper bound as my quicksort was reaching max recursion depth at 10,000, though this was before a bug was fixed causing my quicksort to run significantly slower (thank you Paul for helping me fix it 🙏). The benchmarking was done with the fixed quicksort, but I didn't change the list sizes (my quicksort can now handle random lists of 100k elements without overflowing).
 
-I also tested the impact of number size on sorting times, with my hypothesis being that larger numbers would cause Radix sort to perform worse. For this, I generated random numbers in the following ranges: 0-100, 0-$10^9$, and $10^8$-$10^9$.
+I also tested the impact of number size on sorting times, with my hypothesis being that larger numbers would cause Radix sort to perform worse. For this, I generated random numbers in the following ranges: 0-100, 0- $10^9$, and $10^8$ - $10^9$.
 
 Below is a table of the sorting times, with all times in milliseconds.
 
@@ -20,7 +20,7 @@ Looking at the graphs, radix sort tended to perform the quickest, followed by qu
 
 Interestingly, all functions other than radix sort performed worse with values 0-100. I suspect this has to do with some weird behavior with duplicates (such as causing quicksort to find unoptimal pivots).
 
-My hypothesis of radix sort performing worse with larger numbers seemed to not be true, as there is no significant increase in runtime between the 0-100 case and the $10^8$-$10^9$ case. This is likely because the numbers still are not big enough. Comparing the big O of radix, $O(nk)$ where $k$ is the number of digits, to $O(n\log n)$, 9 digits is still a lot less than $\log n$. If I wanted to test larger values, I would need to swap my types to `Long` instead of `Int`, but I didn't feel like doing that.
+My hypothesis of radix sort performing worse with larger numbers seemed to not be true, as there is no significant increase in runtime between the 0-100 case and the $10^8$ - $10^9$ case. This is likely because the numbers still are not big enough. Comparing the big O of radix, $O(nk)$ where $k$ is the number of digits, to $O(n\log n)$, 9 digits is still a lot less than $\log n$. If I wanted to test larger values, I would need to swap my types to `Long` instead of `Int`, but I didn't feel like doing that.
 
 ## New Frontiers
 
