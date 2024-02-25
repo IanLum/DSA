@@ -1,7 +1,9 @@
 package org.example
 
-class Matrix(private var size: Int) {
-    private var m = Array(size) { IntArray(size) }
+class Matrix(
+    private var size: Int,
+    private var m: Array<IntArray> = Array(size) { IntArray(size) }
+) {
 
     fun get(row: Int, col: Int) = m[row][col]
     fun set(value: Int, row: Int, col: Int) {
@@ -18,6 +20,9 @@ class Matrix(private var size: Int) {
     }
 
     fun getAll() = m
+
+    fun size() = size
+
     fun print() {
         m.forEach {row ->
             row.forEach {
@@ -25,5 +30,28 @@ class Matrix(private var size: Int) {
             }
             print("\n")
         }
+    }
+
+    /**
+     * Multiply [this] matrix by [other].
+     * @return [this]*[other] if the dimensions are compatible and null otherwise
+     */
+    fun multiply(other: Matrix): Matrix {
+        if (size != other.size())
+            throw Exception("Matrices do not have the same size")
+
+        val out = Matrix(size)
+
+        for (outRow in 0..<size) {
+            for (outCol in 0..<size) {
+                var sum = 0
+                for (i in 0..<size) {
+                    sum += this.get(outRow, i) * other.get(i, outCol)
+                }
+                out.set(sum, outRow, outCol)
+            }
+        }
+
+        return out
     }
 }
