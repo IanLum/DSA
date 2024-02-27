@@ -33,6 +33,24 @@ class Matrix(
     }
 
     /**
+     * Gets a square submatrix from a given row [fromRow] and a given column [fromCol],
+     * of size [size]
+     */
+    fun getSlice(fromRow: Int, fromCol: Int, size: Int): Matrix {
+        val out = Matrix(size)
+        for (row in fromRow..<fromRow+size) {
+            for (col in fromCol..<fromCol+size) {
+                out.set(
+                    this.get(row,col),
+                    row-fromRow,
+                    col-fromCol
+                )
+            }
+        }
+        return out
+    }
+
+    /**
      * Multiply [this] matrix by [other].
      * @return [this]*[other] if the dimensions are compatible and null otherwise
      */
@@ -53,5 +71,9 @@ class Matrix(
         }
 
         return out
+    }
+
+    fun strassenMultiply(other: Matrix): Matrix {
+        TODO()
     }
 }
