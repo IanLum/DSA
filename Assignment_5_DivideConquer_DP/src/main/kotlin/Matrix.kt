@@ -51,6 +51,24 @@ class Matrix(
     }
 
     /**
+     * Pad matrix [mat] with zeros so it has size [size]
+     */
+    fun pad(size: Int): Matrix {
+        val out = Matrix(size)
+        for (row in 0..<size) {
+            for (col in 0..<size) {
+                val n = try {
+                    this.get(row,col)
+                } catch (e: ArrayIndexOutOfBoundsException) {
+                    0
+                }
+                out.set(n,row,col)
+            }
+        }
+        return out
+    }
+
+    /**
      * Multiply [this] matrix by [other].
      * @return [this]*[other] if the dimensions are compatible and null otherwise
      */
