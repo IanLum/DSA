@@ -1,5 +1,8 @@
 package org.example
 
+import kotlin.math.log2
+import kotlin.math.pow
+
 class Matrix(
     private var size: Int,
     private var m: Array<IntArray> = Array(size) { IntArray(size) }
@@ -92,6 +95,28 @@ class Matrix(
     }
 
     fun strassenMultiply(other: Matrix): Matrix {
+        if (size != other.size())
+            throw Exception("Matrices do not have the same size")
+
+        var mat1 = this
+        var mat2 = other
+
+        // pad matrices if they don't have power of 2 size
+        if (log2(this.size.toDouble()) % 1.0 != 0.0) {
+            // the next largest power of 2
+            val newSize = 2.0.pow(
+                log2(
+                    this.size.toDouble()
+                ).toInt() + 1
+            ).toInt()
+            mat1 = this.pad(newSize)
+            mat2 = other.pad(newSize)
+        }
+        
+        return other
+    }
+
+    fun strassenRecurse(other: Matrix): Matrix {
         TODO()
     }
 }
