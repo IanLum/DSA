@@ -68,17 +68,11 @@ class Matrix(
      * of size [size]
      */
     fun getSlice(fromRow: Int, fromCol: Int, size: Int): Matrix {
-        val out = Matrix(size)
+        val m: Array<IntArray> = Array(size) { IntArray(size) }
         for (row in fromRow..<fromRow+size) {
-            for (col in fromCol..<fromCol+size) {
-                out.set(
-                    this.get(row,col),
-                    row-fromRow,
-                    col-fromCol
-                )
-            }
+            m[row-fromRow] = this.m[row].sliceArray(fromCol..<fromCol+size)
         }
-        return out
+        return Matrix(size, m)
     }
 
     /**
@@ -161,6 +155,8 @@ class Matrix(
     }
 
     fun strassenRecurse(other: Matrix): Matrix {
+        val half = this.size / 2
+        val a11 = this.getSlice(0,0, half)
         TODO()
     }
 }
