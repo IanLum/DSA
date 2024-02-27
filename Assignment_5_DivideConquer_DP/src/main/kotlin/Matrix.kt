@@ -151,12 +151,36 @@ class Matrix(
             mat2 = other.pad(newSize)
         }
 
-        return other
+        return mat1.strassenRecurse(mat2).getSlice(0,0,size)
     }
 
-    fun strassenRecurse(other: Matrix): Matrix {
+    private fun strassenRecurse(other: Matrix): Matrix {
+        if (this.size == 2)
+            return this.multiply(other)
+
         val half = this.size / 2
         val a11 = this.getSlice(0,0, half)
-        TODO()
+        val a12 = this.getSlice(0, half, half)
+        val a21 = this.getSlice(half, 0, half)
+        val a22 = this.getSlice(half, half, half)
+        val b11 = other.getSlice(0,0, half)
+        val b12 = other.getSlice(0, half, half)
+        val b21 = other.getSlice(half, 0, half)
+        val b22 = other.getSlice(half, half, half)
+
+        val m1 = (a11 + a22).strassenRecurse(b11 + b22)
+        val m2 = (a21 + a22).strassenRecurse(b11)
+        val m3 = a11.strassenRecurse(b12 - b22)
+        val m4 = a22.strassenRecurse(b21 - b11)
+        val m5 = (a11 + a12).strassenRecurse(b22)
+        val m6 = (a21 - a11).strassenRecurse(b11 + b12)
+        val m7 = (a12 - a22).strassenRecurse(b21 + b22)
+
+        return stitch(
+            m1 + m4 - m5 + m7,
+            m3 + m5,
+            m2 + m4,
+            m1 - m2 + m3 + m6
+        )
     }
 }
