@@ -35,6 +35,7 @@ class Matrix(
         }
         return out
     }
+
     fun get(row: Int, col: Int) = m[row][col]
     fun set(value: Int, row: Int, col: Int) {
         m[row][col] = value
@@ -121,6 +122,22 @@ class Matrix(
         return out
     }
 
+    companion object {
+        /**
+         * Stitch together 4 equal sized matrices to create on matrix twice the size
+         */
+        fun stitch(topLeft: Matrix, topRight: Matrix, botLeft: Matrix, botRight: Matrix): Matrix {
+            val size = topLeft.size
+            val m: Array<IntArray> = Array(size*2) { IntArray(size*2) }
+            for (topRow in 0..<size) {
+                m[topRow] = topLeft.getAll()[topRow] + topRight.getAll()[topRow]
+            }
+            for (botRow in 0..<size) {
+                m[botRow + size] = botLeft.getAll()[botRow] + botRight.getAll()[botRow]
+            }
+            return Matrix(size*2, m)
+        }
+    }
     fun strassenMultiply(other: Matrix): Matrix {
         if (size != other.size())
             throw Exception("Matrices do not have the same size")
