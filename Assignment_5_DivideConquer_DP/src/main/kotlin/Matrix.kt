@@ -132,6 +132,12 @@ class Matrix(
             return Matrix(size*2, m)
         }
     }
+
+    /**
+     * Perform matrix multiplication according to Strassen's algorithm.
+     * Differs from the function below, [strassenRecurse] as this function
+     * performs additional padding and de-padding steps.
+     */
     fun strassenMultiply(other: Matrix): Matrix {
         if (size != other.size())
             throw Exception("Matrices do not have the same size")
@@ -154,6 +160,11 @@ class Matrix(
         return mat1.strassenRecurse(mat2).getSlice(0,0,size)
     }
 
+    /**
+     * Perform matrix multiplication according to Strassen's algorithm.
+     * Expects [this] and [other] to be matrices with a size that is
+     * a power of 2.
+     */
     private fun strassenRecurse(other: Matrix): Matrix {
         if (this.size == 2)
             return this.multiply(other)
