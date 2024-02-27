@@ -8,6 +8,33 @@ class Matrix(
     private var m: Array<IntArray> = Array(size) { IntArray(size) }
 ) {
 
+    operator fun plus(other: Matrix): Matrix {
+        val out = Matrix(size)
+        for (row in 0..<size) {
+            for (col in 0..<size) {
+                out.set(
+                    this.get(row, col) + other.get(row, col),
+                    row,
+                    col
+                )
+            }
+        }
+        return out
+    }
+
+    operator fun minus(other: Matrix): Matrix {
+        val out = Matrix(size)
+        for (row in 0..<size) {
+            for (col in 0..<size) {
+                out.set(
+                    this.get(row, col) - other.get(row, col),
+                    row,
+                    col
+                )
+            }
+        }
+        return out
+    }
     fun get(row: Int, col: Int) = m[row][col]
     fun set(value: Int, row: Int, col: Int) {
         m[row][col] = value
@@ -112,7 +139,7 @@ class Matrix(
             mat1 = this.pad(newSize)
             mat2 = other.pad(newSize)
         }
-        
+
         return other
     }
 
