@@ -1,13 +1,20 @@
 package org.example
 
+// Scoring scheme
 const val MATCH = 1
 const val MISMATCH = -1
 const val INDEL = -1
 
+// Global variables for the two sequences and the score table
 var sequence1: String = "" // rows
 var sequence2: String = "" // columns
 var table: Array<IntArray> = emptyArray()
 
+/**
+ * Perform Needleman-Wunsch global alignment algorithm on two strings.
+ * If there are two equal score alignments, only one will be returned.
+ * Diagonal movement is prioritized, then left, then up.
+ */
 fun needlemanWunsch(seq1: String, seq2: String, showTable: Boolean = false): Pair<String, String> {
     sequence1 = " $seq1"
     sequence2 = " $seq2"
@@ -24,6 +31,9 @@ fun needlemanWunsch(seq1: String, seq2: String, showTable: Boolean = false): Pai
     return backtrace(rows-1, cols-1, Pair("",""))
 }
 
+/**
+ * Fill score table for Needleman Wunsch algorithm
+ */
 fun fillTable(row: Int, col: Int): Int {
     if (table[row][col] != Int.MIN_VALUE)
         return table[row][col]
@@ -48,6 +58,9 @@ fun fillTable(row: Int, col: Int): Int {
     return table[row][col]
 }
 
+/**
+ * Trace through filled table to find the ideal global alignment of two strings.
+ */
 fun backtrace(row: Int, col: Int, strings: Pair<String, String>): Pair<String, String> {
     fun traceDiag(row: Int, col: Int, strings: Pair<String, String>): Pair<String, String> =
         backtrace(
