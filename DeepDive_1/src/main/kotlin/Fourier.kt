@@ -2,16 +2,36 @@ package org.example
 
 import kotlin.math.*
 
+/**
+ * A data class to handle complex number arithmetic
+ */
 data class Complex(val real: Double, val imag: Double) {
-    operator fun plus(c: Complex) = Complex(real + c.real, imag + c.imag)
+    /**
+     * Add two complex numbers together
+     * @return The sum of the two complex numbers
+     */
+    operator fun plus(c: Complex): Complex = Complex(real + c.real, imag + c.imag)
 
-    operator fun times(c: Complex) = Complex(
+    /**
+     * Multiply two complex numbers together
+     * @return The product of the two complex numbers
+     */
+    operator fun times(c: Complex): Complex = Complex(
         real * c.real - imag * c.imag,
         real * c.imag + imag * c.real)
 
-    fun abs() = sqrt(real.pow(2) + imag.pow(2))
+    /**
+     * The absolute value or magnitude of this complex number, calculated  as Euclidean distance
+     * @return The absolute value of the complex number
+     */
+    fun abs(): Double = sqrt(real.pow(2) + imag.pow(2))
 }
 
+/**
+ * Perform a Fast Fourier Transform, using the Cooley–Tukey algorithm
+ * @param x: The input signal as a one dimensional list of complex numbers
+ * @return The frequency domain representation of the input signal
+ */
 fun fft(x: List<Complex>): List<Complex> {
     val n = x.size
     if (n == 1) return x
