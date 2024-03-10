@@ -11,6 +11,11 @@ import kotlin.random.Random
 
 class FourierExample {
     companion object {
+
+        /**
+         * Test the [fft] function on a simple sine wave. Plot the absolute value of the result,
+         * showing the amplitude of the angular frequencies present in the signal.
+         */
         fun simple() {
             val t = List(16) { it }
             val x = t.map { Complex(sin(it.toDouble()), 0.0) }
@@ -20,7 +25,11 @@ class FourierExample {
 
             plot() {
                 points { x(t); y(yAbs) }
-                layout { title = "FFT of Sine Wave" }
+                layout {
+                    title = "FFT of Sine Wave"
+                    xAxisLabel = "Frequency (rad/sample)"
+                    yAxisLabel = "Amplitude"
+                }
             }.save("fft.png")
         }
 
