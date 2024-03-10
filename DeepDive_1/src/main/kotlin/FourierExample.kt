@@ -33,7 +33,10 @@ class FourierExample {
             }.save("fft.png")
         }
 
-        // https://www.mathworks.com/help/matlab/ref/fft.html
+        /**
+         * Recreate the "Noisy Signal" example from MATLAB's documentation.
+         * https://www.mathworks.com/help/matlab/ref/fft.html
+         */
         fun matlab() {
             val Fs = 1000.0 // Sampling frequency
             val T = 1.0/Fs // Sampling period
@@ -57,6 +60,7 @@ class FourierExample {
             val Y = fft(X.map { Complex(it, 0.0) })
 
             val YAbs = Y.map { it.abs() }
+            // Transform frequency from rad/sample to hz
             val freq = List(L) { Fs / L * it }
 
             plot() {
