@@ -7,3 +7,9 @@ I benchmarked my FFT Implementation against MATLAB's `fft` function, measuring t
 MATLAB's `fft` performed significantly better at every array length, which was not surprising. While both functions are $O(n\log n)$ (assuming my implementation is correct, which I think it is), MATLAB's version has a much smaller constant term, likely because of MATLAB's many optimizations for vector math. Additionally, my implementation doesn't use vector operations, and instead maps functions onto lists, which is a likely part of the slow-down.
 
 ![](img/FFT%20Benchmarking.png)
+
+Resources used for implementation:
+
+- https://en.wikipedia.org/wiki/Cooley%E2%80%93Tukey_FFT_algorithm
+- https://medium.com/0xcode/fast-fourier-transform-fft-algorithm-implementation-in-python-b592099bdb27
+- https://jakevdp.github.io/blog/2013/08/28/understanding-the-fft/
