@@ -9,7 +9,7 @@ class AssociativeList<K, V>: AssociativeArray<K, V> {
     }
 
     override fun contains(k: K): Boolean {
-        TODO("Not yet implemented")
+        return get(k) != null
     }
 
     override fun get(k: K): V? {
