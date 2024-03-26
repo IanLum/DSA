@@ -52,7 +52,13 @@ class AssociativeList<K, V>: AssociativeArray<K, V> {
     }
 
     override fun keyValuePairs(): List<Pair<K, V>> {
-        TODO("Not yet implemented")
+        val out = mutableListOf<Pair<K, V>>()
+        var curr = head
+        while (curr != null) {
+            out.add(Pair(curr.key, curr.value))
+            curr = curr.next
+        }
+        return out
     }
 
 }
