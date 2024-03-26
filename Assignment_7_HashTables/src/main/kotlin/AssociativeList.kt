@@ -1,7 +1,7 @@
 package org.example
 
 class AssociativeList<K, V>: AssociativeArray<K, V> {
-    class ListNode<K, V>(val key: K, val value: V, var next: ListNode<K, V>?)
+    class ListNode<K, V>(val key: K, var value: V, var next: ListNode<K, V>?)
     private var head: ListNode<K, V>? = null
 
     private fun getNode(k: K): ListNode<K, V>? {
@@ -15,7 +15,13 @@ class AssociativeList<K, V>: AssociativeArray<K, V> {
     }
 
     override fun set(k: K, v: V) {
-        head = ListNode(k, v, head)
+        getNode(k)?.also {
+            // If key node exists (is not null), override it
+            it.value = v
+        } ?: run {
+            // Otherwise, add a fresh node to head
+            head = ListNode(k, v, head)
+        }
     }
 
     override fun contains(k: K): Boolean {
