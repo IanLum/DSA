@@ -4,23 +4,25 @@ class AssociativeList<K, V>: AssociativeArray<K, V> {
     class ListNode<K, V>(val key: K, val value: V, var next: ListNode<K, V>?)
     private var head: ListNode<K, V>? = null
 
+    private fun getNode(k: K): ListNode<K, V>? {
+        var curr = head
+        while (curr != null) {
+            if (curr.key == k)
+                return curr
+            curr = curr.next
+        }
+        return null
+    }
+
     override fun set(k: K, v: V) {
         head = ListNode(k, v, head)
     }
 
     override fun contains(k: K): Boolean {
-        return get(k) != null
+        return getNode(k) != null
     }
 
-    override fun get(k: K): V? {
-        var curr = head
-        while (curr != null) {
-            if (curr.key == k)
-                return curr.value
-            curr = curr.next
-        }
-        return null
-    }
+    override fun get(k: K): V? = getNode(k)?.value
 
     override fun remove(k: K): Boolean {
         head?.also {
