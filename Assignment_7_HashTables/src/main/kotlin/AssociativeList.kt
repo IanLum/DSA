@@ -3,6 +3,7 @@ package org.example
 class AssociativeList<K, V>: AssociativeArray<K, V> {
     class ListNode<K, V>(val key: K, var value: V, var next: ListNode<K, V>?)
     private var head: ListNode<K, V>? = null
+    private var size: Int = 0
 
     private fun getNode(k: K): ListNode<K, V>? {
         var curr = head
@@ -21,6 +22,7 @@ class AssociativeList<K, V>: AssociativeArray<K, V> {
         } ?: run {
             // Otherwise, add a fresh node to head
             head = ListNode(k, v, head)
+            size += 1
         }
     }
 
@@ -36,6 +38,7 @@ class AssociativeList<K, V>: AssociativeArray<K, V> {
             if (it.key == k) {
                 // Special case if head is holding the key to remove
                 head = it.next
+                size -= 1
                 return true
             }
 
@@ -46,6 +49,7 @@ class AssociativeList<K, V>: AssociativeArray<K, V> {
                 if (curr.key == k) {
                     // Link nodes across the removed value
                     prev.next = curr.next
+                    size -= 1
                     return true
                 }
                 prev = curr
@@ -55,9 +59,7 @@ class AssociativeList<K, V>: AssociativeArray<K, V> {
         return false
     }
 
-    override fun size(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun size(): Int = size
 
     override fun keyValuePairs(): List<Pair<K, V>> {
         val out = mutableListOf<Pair<K, V>>()
