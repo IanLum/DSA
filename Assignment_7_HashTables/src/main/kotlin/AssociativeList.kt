@@ -5,6 +5,9 @@ class AssociativeList<K, V>: AssociativeArray<K, V> {
     private var head: ListNode<K, V>? = null
     private var size: Int = 0
 
+    /**
+     * @return the [ListNode] associated with the key [k] or null if it doesn't exist
+     */
     private fun getNode(k: K): ListNode<K, V>? {
         var curr = head
         while (curr != null) {
