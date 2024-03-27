@@ -39,7 +39,7 @@ class HashMap<K, V>: AssociativeArray<K, V> {
     private var size: Int = 0
     private var sizeIdx: Int = 0
     private var maxSize: Int = goodPrimes[sizeIdx]
-    private val buckets = Array<AssociativeList<K, V>>(maxSize) { AssociativeList() }
+    private var buckets = Array<AssociativeList<K, V>>(maxSize) { AssociativeList() }
 
     private fun <K> hash(k: K): Int {
         return when (k) {
@@ -52,9 +52,26 @@ class HashMap<K, V>: AssociativeArray<K, V> {
         }
     }
     override fun set(k: K, v: V): Boolean {
+        if (size == maxSize) resize()
         val res = buckets[hash(k)].set(k, v)
         if (res) size += 1
         return res
+    }
+
+    private fun resize() {
+        // Update size attributes
+        sizeIdx += 1
+        if (sizeIdx >= goodPrimes.size)
+            error("HashMap overfull, more than ${goodPrimes.last()} elements")
+        maxSize = goodPrimes[sizeIdx]
+        // Save existing elements
+        val elements = keyValuePairs()
+        // Reset and refill buckets
+        buckets = Array<AssociativeList<K, V>>(maxSize) { AssociativeList() }
+        size = 0
+        elements.forEach { (key, value) ->
+            set(key, value)
+        }
     }
 
     override fun contains(k: K): Boolean = buckets[hash(k)].contains(k)
@@ -68,6 +85,8 @@ class HashMap<K, V>: AssociativeArray<K, V> {
     }
 
     override fun size(): Int = size
+
+    fun maxSize(): Int = maxSize
 
     override fun keyValuePairs(): List<Pair<K, V>> {
         val out = mutableListOf<Pair<K, V>>()
