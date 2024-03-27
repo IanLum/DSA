@@ -1,7 +1,15 @@
 package org.example
 
 class AssociativeList<K, V>: AssociativeArray<K, V> {
+    /**
+     * Internal class representing the nodes in the linked list
+     */
     class ListNode<K, V>(val key: K, var value: V, var next: ListNode<K, V>?)
+
+    /**
+     * @property head: The first [ListNode] in the linked list
+     * @property size: The current number of elements in the list
+     */
     private var head: ListNode<K, V>? = null
     private var size: Int = 0
 
