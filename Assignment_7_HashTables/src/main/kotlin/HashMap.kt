@@ -51,19 +51,23 @@ class HashMap<K, V>: AssociativeArray<K, V> {
             else -> error("Invalid Key Type")
         }
     }
-    override fun set(k: K, v: V) {
-        buckets[hash(k)][k] = v
+    override fun set(k: K, v: V): Boolean {
+        val res = buckets[hash(k)].set(k, v)
+        if (res) size += 1
+        return res
     }
 
     override fun contains(k: K): Boolean = buckets[hash(k)].contains(k)
 
     override fun get(k: K): V? = buckets[hash(k)][k]
 
-    override fun remove(k: K): Boolean = buckets[hash(k)].remove(k)
-
-    override fun size(): Int {
-        TODO("Not yet implemented")
+    override fun remove(k: K): Boolean {
+        val res = buckets[hash(k)].remove(k)
+        if (res) size -= 1
+        return res
     }
+
+    override fun size(): Int = size
 
     override fun keyValuePairs(): List<Pair<K, V>> {
         val out = mutableListOf<Pair<K, V>>()
