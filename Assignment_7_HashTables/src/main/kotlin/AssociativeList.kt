@@ -18,7 +18,7 @@ class AssociativeList<K, V>: AssociativeArray<K, V> {
         return null
     }
 
-    override fun set(k: K, v: V) {
+    override fun set(k: K, v: V): Boolean {
         getNode(k)?.also {
             // If key node exists (is not null), override it
             it.value = v
@@ -26,7 +26,9 @@ class AssociativeList<K, V>: AssociativeArray<K, V> {
             // Otherwise, add a fresh node to head
             head = ListNode(k, v, head)
             size += 1
+            return true
         }
+        return false
     }
 
     override fun contains(k: K): Boolean {

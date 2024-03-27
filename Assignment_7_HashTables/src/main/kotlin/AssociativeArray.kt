@@ -9,8 +9,9 @@ interface AssociativeArray<K, V> {
     /**
      * Insert the mapping from the key, [k], to the value, [v].
      * If the key already maps to a value, replace the mapping.
+     * @return true if a new key value pair was added, false otherwise (including if mapping was replaced)
      */
-    operator fun set(k: K, v: V)
+    operator fun set(k: K, v: V): Boolean
 
     /**
      * @return true if [k] is a key in the associative array
