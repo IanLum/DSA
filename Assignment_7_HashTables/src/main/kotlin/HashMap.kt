@@ -1,13 +1,10 @@
 package org.example
 
-// https://planetmath.org/goodhashtableprimes
+/**
+ * Prime numbers used as array sizes for the division hashing hash table
+ * https://planetmath.org/goodhashtableprimes
+ */
 val goodPrimes = arrayOf(
-//    // I added these to test smaller array sizes
-//    7,
-//    11,
-//    17,
-//    29,
-//    // -----
     53,
     97,
     193,
@@ -35,12 +32,30 @@ val goodPrimes = arrayOf(
     805306457,
     1610612741
 )
+
+/**
+ * @property size: The number of elements currently stored in the hashmap
+ * @property sizeIdx: The current index of [maxSize] in [goodPrimes]
+ * @property maxSize: The current number of buckets in the hashmap, determined by [goodPrimes]
+ * @property buckets: An array of [AssociativeList], holds the key value pairs
+ */
 class HashMap<K, V>: AssociativeArray<K, V> {
     private var size: Int = 0
     private var sizeIdx: Int = 0
     private var maxSize: Int = goodPrimes[sizeIdx]
     private var buckets = Array<AssociativeList<K, V>>(maxSize) { AssociativeList() }
 
+    /**
+     * Hash a value to an [Int]
+     * Only implemented on [Number] ([Byte], [Short], [Int], [Long], [Float], [Double])
+     * as well as [String] and [Char]. Will through an error if another type is received
+     *
+     * @return The hash of the value as an [Int]
+     * Hashes [Number] by converting to [Int] and taking the modulo with [maxSize]
+     * Hashes [String] by converting each character to ascii, and, starting with the first character,
+     * alternating between multiplying and taking the modulo. Returns the modulo of the result with [maxSize]
+     * Hashes [Char] by converting to ascii and taking the modulo with [maxSize]
+     */
     private fun <K> hash(k: K): Int {
         return when (k) {
             is Number -> k.toInt() % maxSize
@@ -59,6 +74,10 @@ class HashMap<K, V>: AssociativeArray<K, V> {
         return res
     }
 
+    /**
+     * Resize the number of [buckets] by setting the size to the next [goodPrimes] and re-adding each element.
+     * Can only resize up to the largest [goodPrimes], 1610612741, above which will throw and error
+     */
     private fun resize() {
         // Update size attributes
         sizeIdx += 1
@@ -87,6 +106,9 @@ class HashMap<K, V>: AssociativeArray<K, V> {
 
     override fun size(): Int = size
 
+    /**
+     * @return The private property [maxSize]
+     */
     fun maxSize(): Int = maxSize
 
     override fun keyValuePairs(): List<Pair<K, V>> {
