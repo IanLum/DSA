@@ -2,12 +2,12 @@ package org.example
 
 // https://planetmath.org/goodhashtableprimes
 val goodPrimes = arrayOf(
-    // I added these to test smaller array sizes
-    7,
-    11,
-    17,
-    29,
-    // -----
+//    // I added these to test smaller array sizes
+//    7,
+//    11,
+//    17,
+//    29,
+//    // -----
     53,
     97,
     193,
@@ -45,8 +45,9 @@ class HashMap<K, V>: AssociativeArray<K, V> {
         return when (k) {
             is Number -> k.toInt() % maxSize
             is String -> k.map { it.code }
-                .joinToString("")
-                .toInt() % maxSize
+                .reduceIndexed { idx, acc, num ->
+                    if (idx % 2 == 0) acc % num else acc + num
+                } % maxSize
             is Char -> k.code % maxSize
             else -> error("Invalid Key Type")
         }
