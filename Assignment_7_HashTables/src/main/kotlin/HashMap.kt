@@ -52,7 +52,7 @@ class HashMap<K, V>: AssociativeArray<K, V> {
         }
     }
     override fun set(k: K, v: V) {
-        TODO("Not yet implemented")
+        buckets[hash(k)][k] = v
     }
 
     override fun contains(k: K): Boolean {
@@ -72,6 +72,10 @@ class HashMap<K, V>: AssociativeArray<K, V> {
     }
 
     override fun keyValuePairs(): List<Pair<K, V>> {
-        TODO("Not yet implemented")
+        val out = mutableListOf<Pair<K, V>>()
+        buckets.forEach {
+            out += it.keyValuePairs()
+        }
+        return out
     }
 }
