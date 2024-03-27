@@ -2,6 +2,12 @@ package org.example
 
 // https://planetmath.org/goodhashtableprimes
 val goodPrimes = arrayOf(
+    // I added these to test smaller array sizes
+    7,
+    11,
+    17,
+    29,
+    // -----
     53,
     97,
     193,
@@ -30,11 +36,21 @@ val goodPrimes = arrayOf(
     1610612741
 )
 class HashMap<K, V>: AssociativeArray<K, V> {
-    private var size = 0
-    private var sizeIdx = 0
-    private var maxSize = goodPrimes[sizeIdx]
+    private var size: Int = 0
+    private var sizeIdx: Int = 0
+    private var maxSize: Int = goodPrimes[sizeIdx]
     private val buckets = Array<AssociativeList<K, V>>(maxSize) { AssociativeList() }
 
+    private fun <K> hash(k: K): Int {
+        return when (k) {
+            is Number -> k.toInt() % maxSize
+            is String -> k.map { it.code }
+                .joinToString("")
+                .toInt() % maxSize
+            is Char -> k.code % maxSize
+            else -> error("Invalid Key Type")
+        }
+    }
     override fun set(k: K, v: V) {
         TODO("Not yet implemented")
     }
