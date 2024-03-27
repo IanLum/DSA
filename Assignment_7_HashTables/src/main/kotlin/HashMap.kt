@@ -57,9 +57,7 @@ class HashMap<K, V>: AssociativeArray<K, V> {
 
     override fun contains(k: K): Boolean = buckets[hash(k)].contains(k)
 
-    override fun get(k: K): V? {
-        TODO("Not yet implemented")
-    }
+    override fun get(k: K): V? = buckets[hash(k)][k]
 
     override fun remove(k: K): Boolean {
         TODO("Not yet implemented")
