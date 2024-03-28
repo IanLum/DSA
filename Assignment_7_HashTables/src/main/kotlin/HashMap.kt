@@ -59,10 +59,13 @@ class HashMap<K, V>: AssociativeArray<K, V> {
     private fun <K> hash(k: K): Int {
         return when (k) {
             is Number -> k.toInt() % maxSize
-            is String -> k.map { it.code }
-                .reduceIndexed { idx, acc, num ->
-                    if (idx % 2 == 0) acc % num else acc + num
-                } % maxSize
+            is String -> {
+                if (k == "") 0
+                else k.map { it.code }
+                    .reduceIndexed { idx, acc, num ->
+                        if (idx % 2 == 0) acc % num else acc + num
+                    } % maxSize
+            }
             is Char -> k.code % maxSize
             else -> error("Invalid Key Type")
         }
