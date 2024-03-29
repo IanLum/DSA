@@ -63,7 +63,7 @@ class HashMap<K, V>: AssociativeArray<K, V> {
                 if (k == "") 0
                 else k.map { it.code }
                     .reduceIndexed { idx, acc, num ->
-                        if (idx % 2 == 0) acc % num else acc + num
+                        if (idx % 2 == 0) acc % (num + 1) else acc + num
                     } % maxSize
             }
             is Char -> k.code % maxSize
