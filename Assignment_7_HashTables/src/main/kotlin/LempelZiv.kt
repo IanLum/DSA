@@ -1,17 +1,24 @@
 package org.example
 
+import kotlin.math.ceil
+import kotlin.math.log2
+
 fun intToBinary(n: Int, bits: Int): String {
     val out = n.toString(2)
     return "0".repeat(bits - out.length) + out
 }
 
-//fun constructAlphabet(str: String) {
-//    val uniques = str.toSet().toList()
-//    val alphabet = HashMap<Char, String>()
-//    uniques.forEach {
-//
-//    }
-//}
+fun constructAlphabet(str: String): HashMap<Char, String> {
+    val uniques = str.toSet().toList()
+    val alphabet = HashMap<Char, String>()
+    uniques.forEach {
+        alphabet[it] = intToBinary(
+            alphabet.size(),
+            ceil(log2(uniques.size.toFloat())).toInt()
+        )
+    }
+    return alphabet
+}
 
 fun lempelZiv(str: String) {
     var input = str + "\u0000"
