@@ -27,9 +27,10 @@ fun constructAlphabet(str: String): HashMap<Char, String> {
     return alphabet
 }
 
-fun lempelZiv(str: String) {
+fun lempelZiv(str: String, debug: Boolean = false): String {
     var input = str + "\u0000"
     var out = ""
+    var debugOut = ""
     val alphabet = constructAlphabet(str)
     alphabet['\u0000'] = ""
     val codebook = HashMap<String, Int>()
@@ -45,8 +46,6 @@ fun lempelZiv(str: String) {
             subLen++
         }
         val substr = input.take(subLen)
-        // remove from input
-        input = input.drop(subLen)
         // get the code in binary
         val code = codebook[substr.dropLast(1)]?.let {
             intToBinary(it, numBits(codebook.size()))
@@ -54,11 +53,16 @@ fun lempelZiv(str: String) {
         // get the end char in binary via the alphabet map
         val endChar = alphabet[substr.last()]
         // add to output
-        out += "$code, $endChar | "
+        out += "$code$endChar"
+        if (debug)
+            debugOut += "$code, $endChar | "
 
+        // remove from input
+        input = input.drop(subLen)
         // add to codebook
         codebook[substr] = codebook.size()
     }
-    println(codebook.keyValuePairs())
-    println(out)
+    if (debug)
+        println(debugOut)
+    return out
 }
