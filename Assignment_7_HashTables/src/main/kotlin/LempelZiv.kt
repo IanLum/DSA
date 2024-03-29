@@ -1,7 +1,7 @@
 package org.example
 
 fun lempelZiv(str: String) {
-    var input = str
+    var input = str + "\u0000"
     val codebook = HashMap<String, Int>()
     codebook[""] = 0
     var out = ""
