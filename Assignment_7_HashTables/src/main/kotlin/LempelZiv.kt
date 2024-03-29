@@ -1,5 +1,18 @@
 package org.example
 
+fun intToBinary(n: Int, bits: Int): String {
+    val out = n.toString(2)
+    return "0".repeat(bits - out.length) + out
+}
+
+//fun constructAlphabet(str: String) {
+//    val uniques = str.toSet().toList()
+//    val alphabet = HashMap<Char, String>()
+//    uniques.forEach {
+//
+//    }
+//}
+
 fun lempelZiv(str: String) {
     var input = str + "\u0000"
     val codebook = HashMap<String, Int>()
