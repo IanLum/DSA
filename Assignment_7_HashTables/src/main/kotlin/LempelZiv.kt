@@ -3,6 +3,13 @@ package org.example
 import kotlin.math.ceil
 import kotlin.math.log2
 
+
+fun numBits(numElements: Int): Int {
+    if (numElements == 1)
+        return 1
+    return ceil(log2(numElements.toFloat())).toInt()
+}
+
 fun intToBinary(n: Int, bits: Int): String {
     val out = n.toString(2)
     return "0".repeat(bits - out.length) + out
@@ -14,7 +21,7 @@ fun constructAlphabet(str: String): HashMap<Char, String> {
     uniques.forEach {
         alphabet[it] = intToBinary(
             alphabet.size(),
-            ceil(log2(uniques.size.toFloat())).toInt()
+            numBits(uniques.size)
         )
     }
     return alphabet
@@ -22,9 +29,11 @@ fun constructAlphabet(str: String): HashMap<Char, String> {
 
 fun lempelZiv(str: String) {
     var input = str + "\u0000"
+    var out = ""
+    val alphabet = constructAlphabet(str)
+    alphabet['\u0000'] = ""
     val codebook = HashMap<String, Int>()
     codebook[""] = 0
-    var out = ""
     while (input.isNotEmpty()) {
         var subLen = 1
         // find substring length for new entry
@@ -36,12 +45,19 @@ fun lempelZiv(str: String) {
             subLen++
         }
         val substr = input.take(subLen)
-        // add to codebook
-        codebook[substr] = codebook.size()
         // remove from input
         input = input.drop(subLen)
+        // get the code in binary
+        val code = codebook[substr.dropLast(1)]?.let {
+            intToBinary(it, numBits(codebook.size()))
+        }
+        // get the end char in binary via the alphabet map
+        val endChar = alphabet[substr.last()]
         // add to output
-        out += codebook[substr.dropLast(1)].toString() + substr.last() + " "
+        out += "$code, $endChar | "
+
+        // add to codebook
+        codebook[substr] = codebook.size()
     }
     println(codebook.keyValuePairs())
     println(out)
