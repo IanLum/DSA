@@ -1,5 +1,7 @@
 package org.example
 
+import kotlin.math.log2
+
 fun main() {
-    println("Hello World!")
+    println(lempelZiv("AABABBBABAABABBBABBABB", debug = true))
 }
