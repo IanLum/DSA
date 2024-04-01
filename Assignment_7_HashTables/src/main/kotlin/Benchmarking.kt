@@ -1,12 +1,13 @@
 package org.example
 
+import kotlin.math.pow
 import kotlin.random.Random
 import kotlin.time.DurationUnit
 import kotlin.time.measureTime
 
 fun benchmarking(numValues: List<Int>, forGSheets: Boolean) {
     val allNums = MutableList(numValues.max() * 5) { it }
-    println("Size | Standard | Strassen")
+    println("Size | Associative List | Hashmap")
     numValues.forEach { size ->
         allNums.shuffle()
         val nums = allNums.take(size)
@@ -32,4 +33,9 @@ fun benchmarking(numValues: List<Int>, forGSheets: Boolean) {
             print(" | $hTime\n")
         }
     }
+}
+
+fun main() {
+    val numValues = listOf(10, 100, 500, 1000, 5000, 10000, 50000, 100000)
+    benchmarking(numValues, true)
 }
