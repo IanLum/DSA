@@ -38,4 +38,31 @@ class RedBlackTree {
         else
             parent.right = new
     }
+
+    /**
+     * Print all elements in the tree, layer by layer, left to right
+     */
+    fun print() {
+        if (root == null) {
+            println("Tree is empty")
+            return
+        }
+        val nextLayer: MutableList<Node> = mutableListOf(root!!)
+        
+        // BFS through tree, printing elements
+        while (nextLayer.isNotEmpty()) {
+            val layer = nextLayer.toMutableList()
+            nextLayer.clear()
+            layer.forEach { node ->
+                print("${node.value} ")
+                node.left?.let {
+                    nextLayer.add(it)
+                }
+                node.right?.let {
+                    nextLayer.add(it)
+                }
+            }
+            println()
+        }
+    }
 }
