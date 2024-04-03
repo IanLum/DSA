@@ -6,7 +6,7 @@ class RedBlackTree {
     class Node(
         val value: Int,
         val parent: Node? = null,
-        val color: R,
+        val color: Color = Color.R,
         val left: Node? = null,
         val right: Node? = null
     )
