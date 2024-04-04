@@ -5,7 +5,7 @@ class RedBlackTree {
 
     class Node(
         val value: Int,
-        val parent: Node? = null,
+        var parent: Node? = null,
         val color: Color = Color.R,
         var left: Node? = null,
         var right: Node? = null
@@ -40,6 +40,34 @@ class RedBlackTree {
     }
 
     /**
+     * Perform left rotation operation
+     * https://en.wikipedia.org/wiki/Tree_rotation
+     * @param rotatedNode The node to rotate about
+     */
+    fun leftRotate(rotatedNode: Node) {
+        // The node must have a right child
+        val rightChild = rotatedNode.right!!
+        // Rotated node acquires grandchild as child
+        rotatedNode.right = rightChild.left
+        rightChild.left?.let {
+            it.parent = rotatedNode
+        }
+        // Now highest node sets parent
+        rightChild.parent = rotatedNode.parent
+        rotatedNode.parent?.also { parent ->
+            if (rotatedNode == parent.left)
+                parent.left = rotatedNode
+            else
+                parent.right = rotatedNode
+        } ?: run {
+            root = rightChild
+        }
+        // Rotated node becomes child's child
+        rightChild.left = rotatedNode
+        rotatedNode.parent = rightChild
+    }
+
+    /**
      * Print all elements in the tree, layer by layer, left to right
      */
     fun print() {
@@ -48,7 +76,7 @@ class RedBlackTree {
             return
         }
         val nextLayer: MutableList<Node> = mutableListOf(root!!)
-        
+
         // BFS through tree, printing elements
         while (nextLayer.isNotEmpty()) {
             val layer = nextLayer.toMutableList()
