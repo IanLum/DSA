@@ -68,6 +68,34 @@ class RedBlackTree {
     }
 
     /**
+     * Perform right rotation operation
+     * https://en.wikipedia.org/wiki/Tree_rotation
+     * @param rotatedNode The node to rotate about
+     */
+    fun rightRotate(rotatedNode: Node) {
+        // The node must have a left child
+        val leftChild = rotatedNode.left!!
+        // Rotated node acquires grandchild as child
+        rotatedNode.left = leftChild.right
+        leftChild.right?.let {
+            it.parent = rotatedNode
+        }
+        // Now highest node sets parent
+        leftChild.parent = rotatedNode.parent
+        rotatedNode.parent?.also { parent ->
+            if (rotatedNode == parent.right)
+                parent.right = rotatedNode
+            else
+                parent.left = rotatedNode
+        } ?: run {
+            root = leftChild
+        }
+        // Rotated node becomes child's child
+        leftChild.right = rotatedNode
+        rotatedNode.parent = leftChild
+    }
+
+    /**
      * Print all elements in the tree, layer by layer, left to right
      */
     fun print() {
