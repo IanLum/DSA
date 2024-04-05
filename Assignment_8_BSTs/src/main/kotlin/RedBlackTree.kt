@@ -149,7 +149,10 @@ class RedBlackTree {
             val layer = nextLayer.toMutableList()
             nextLayer.clear()
             layer.forEach { node ->
-                print("${node.value} ")
+                if (node.color == Color.R)
+                    print("\u001b[31m${node.value} \u001b[0m") // ANSI color codes
+                else
+                    print("${node.value} ")
                 node.left?.let {
                     nextLayer.add(it)
                 }
