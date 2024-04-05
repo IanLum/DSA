@@ -6,7 +6,7 @@ class RedBlackTree {
     class Node(
         val value: Int,
         var parent: Node? = null,
-        val color: Color = Color.R,
+        var color: Color = Color.R,
         var left: Node? = null,
         var right: Node? = null
     )
@@ -17,7 +17,7 @@ class RedBlackTree {
      * Insert a value as a leaf following binary search tree procedure
      * @param value The value to insert
      */
-    fun insert(value: Int) {
+    fun insert(value: Int, fix: Boolean = false) {
         var parent: Node? = null
         var curr: Node? = root
 
@@ -37,6 +37,45 @@ class RedBlackTree {
             parent.left = new
         else
             parent.right = new
+
+        if (fix)
+            insertFixup(new)
+    }
+
+    private fun insertFixup(insertedNode: Node) {
+        var z = insertedNode
+        while ((z.parent != null) and (z.parent?.color == Color.R)) {
+            val parent = z.parent!!
+            val grandparent = parent.parent
+
+            if (parent == grandparent?.left) {
+                // Parent is a left child, uncle is a right child
+                val uncle = grandparent.right
+                if (uncle?.color == Color.R) {
+                    // Uncle is red, case 1
+                    parent.color = Color.B
+                    uncle.color = Color.B
+                    grandparent.color = Color.R
+                }
+                else {
+                    // Uncle is black, case 2 or 3
+                    if (z == parent.right) {
+                        // There is a triangle, case 2
+                        // (z is a right child and parent is a left child)
+                        z = parent
+                        leftRotate(z)
+                    }
+                    // There is a line, case 3
+                    // (z and parent are both left children)
+
+                    // Because z may have changed in case two, we can no longer use
+                    // the parent and grandparent variables
+                    z.parent!!.color = Color.B
+                    z.parent!!.parent?.color = Color.R
+                    rightRotate(z.parent!!.parent!!)
+                }
+            }
+        }
     }
 
     /**
