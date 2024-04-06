@@ -17,7 +17,7 @@ class RedBlackTree {
      * Insert a value as a leaf following binary search tree procedure
      * @param value The value to insert
      */
-    fun insert(value: Int, fix: Boolean = false) {
+    fun insert(value: Int) {
         var parent: Node? = null
         var curr: Node? = root
 
@@ -38,8 +38,7 @@ class RedBlackTree {
         else
             parent.right = new
 
-        if (fix)
-            insertFixup(new)
+        insertFixup(new)
     }
 
     private fun insertFixup(insertedNode: Node) {
@@ -75,7 +74,37 @@ class RedBlackTree {
                     rightRotate(z.parent!!.parent!!)
                 }
             }
+            else {
+                // Parent is a right child, uncle is a left child
+                val uncle = grandparent?.left
+                if (uncle?.color == Color.R) {
+                    // Uncle is red, case 1
+                    parent.color = Color.B
+                    uncle.color = Color.B
+                    grandparent.color = Color.R
+                }
+                else {
+                    // Uncle is black, case 2 or 3
+                    if (z == parent.left) {
+                        // There is a triangle, case 2
+                        // (z is a left child and parent is a right child)
+                        z = parent
+                        rightRotate(z)
+                    }
+                    // There is a line, case 3
+                    // (z and parent are both left children)
+
+                    // Because z may have changed in case two, we can no longer use
+                    // the parent and grandparent variables
+                    z.parent!!.color = Color.B
+                    z.parent!!.parent?.color = Color.R
+                    leftRotate(z.parent!!.parent!!)
+                }
+            }
+            if (z == root)
+                break
         }
+        root?.color = Color.B
     }
 
     /**
