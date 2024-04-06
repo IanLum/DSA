@@ -124,9 +124,9 @@ class RedBlackTree {
         rightChild.parent = rotatedNode.parent
         rotatedNode.parent?.also { parent ->
             if (rotatedNode == parent.left)
-                parent.left = rotatedNode
+                parent.left = rightChild
             else
-                parent.right = rotatedNode
+                parent.right = rightChild
         } ?: run {
             root = rightChild
         }
@@ -152,9 +152,9 @@ class RedBlackTree {
         leftChild.parent = rotatedNode.parent
         rotatedNode.parent?.also { parent ->
             if (rotatedNode == parent.right)
-                parent.right = rotatedNode
+                parent.right = leftChild
             else
-                parent.left = rotatedNode
+                parent.left = leftChild
         } ?: run {
             root = leftChild
         }
