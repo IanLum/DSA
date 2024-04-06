@@ -186,6 +186,20 @@ class RedBlackTree {
     }
 
     /**
+     * Check that the root of the tree is black, red black tree rule 2
+     * @return True if the root is black, otherwise false
+     */
+    fun rootIsBlack(): Boolean = root?.color == Color.B
+
+    /**
+     * Check red black tree rules
+     * @return True if all rules are met, false if any rule is broken
+     */
+    fun checkInvariants(): Boolean {
+        TODO()
+    }
+
+    /**
      * Print all elements in the tree, layer by layer, left to right
      */
     fun print() {
