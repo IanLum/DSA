@@ -41,6 +41,11 @@ class RedBlackTree {
         insertFixup(new)
     }
 
+    /**
+     * Check if value is in tree
+     * @param value The value to check
+     * @return True if the value is in the tree, otherwise false
+     */
     fun contains(value: Int): Boolean {
         var curr = root
         while (curr != null) {
