@@ -41,6 +41,10 @@ class RedBlackTree {
         insertFixup(new)
     }
 
+    /**
+     * Fix and rebalance tree according to RB tree rules after inserting an element
+     * @param insertedNode The node just inserted
+     */
     private fun insertFixup(insertedNode: Node) {
         var z = insertedNode
         while ((z.parent != null) and (z.parent?.color == Color.R)) {
