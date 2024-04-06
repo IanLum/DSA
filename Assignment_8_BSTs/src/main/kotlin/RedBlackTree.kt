@@ -41,6 +41,19 @@ class RedBlackTree {
         insertFixup(new)
     }
 
+    fun contains(value: Int): Boolean {
+        var curr = root
+        while (curr != null) {
+            if (curr.value == value)
+                return true
+            else if (curr.value > value)
+                curr = curr.left
+            else
+                curr = curr.right
+        }
+        return false
+    }
+
     /**
      * Fix and rebalance tree according to RB tree rules after inserting an element
      * @param insertedNode The node just inserted
