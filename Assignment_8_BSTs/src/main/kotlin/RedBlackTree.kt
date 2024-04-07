@@ -249,7 +249,7 @@ class RedBlackTree {
      * @return True if all rules are met, false if any rule is broken
      */
     fun checkInvariants(): Boolean {
-        TODO()
+        return checkRootIsBlack() and checkRedNodeBlackChildren() and checkLeafBlackDepth()
     }
 
     /**
