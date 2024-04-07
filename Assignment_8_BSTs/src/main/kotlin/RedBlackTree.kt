@@ -191,13 +191,13 @@ class RedBlackTree {
      * Check that the root of the tree is black, red black tree rule 2
      * @return True if the root is black, otherwise false
      */
-    fun rootIsBlack(): Boolean = root?.color == Color.B
+    fun checkRootIsBlack(): Boolean = root?.color == Color.B
 
     /**
      * Check that red nodes have black children, red black tree rule 3
      * @return True if this rule is met, otherwise false
      */
-    fun redNodeBlackChildren(): Boolean {
+    fun checkRedNodeBlackChildren(): Boolean {
         if (root == null)
             return true
         val queue = mutableListOf<Node>(root!!)
@@ -221,7 +221,7 @@ class RedBlackTree {
      * Check that the path to any leaf node crosses the same number of black nodes, red black tree rule 4
      * @return True if this rule is met, false otherwise
      */
-    fun leafBlackDepth(): Boolean {
+    fun checkLeafBlackDepth(): Boolean {
         if (root == null)
             return true
         val queue = mutableListOf<Pair<Node, Int>>(Pair(root!!, 0))
