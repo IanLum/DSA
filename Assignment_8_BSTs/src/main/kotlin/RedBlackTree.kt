@@ -192,6 +192,32 @@ class RedBlackTree {
     fun rootIsBlack(): Boolean = root?.color == Color.B
 
     /**
+     * Check that red nodes have black children, red black tree rule 3
+     * @return True if this rule is met, otherwise false
+     */
+    fun redNodeBlackChildren(): Boolean {
+        if (root == null)
+            return true
+        val queue = mutableListOf<Node>(root!!)
+        while (queue.isNotEmpty()) {
+            val curr = queue.removeFirst()
+            if (curr.color == Color.R) {
+                if ((curr.left?.color == Color.R) or (curr.right?.color == Color.R)) {
+                    println(curr.value)
+                    return false
+                }
+            }
+            curr.left?.let {
+                queue.add(it)
+            }
+            curr.right?.let {
+                queue.add(it)
+            }
+        }
+        return true
+    }
+
+    /**
      * Check red black tree rules
      * @return True if all rules are met, false if any rule is broken
      */
