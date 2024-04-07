@@ -16,8 +16,9 @@ class RedBlackTree {
     /**
      * Insert a value as a leaf following binary search tree procedure
      * @param value The value to insert
+     * @param noFixup Don't fixup after inserting, used for debugging invariant checks
      */
-    fun insert(value: Int) {
+    fun insert(value: Int, noFixup: Boolean = false) {
         var parent: Node? = null
         var curr: Node? = root
 
@@ -38,7 +39,8 @@ class RedBlackTree {
         else
             parent.right = new
 
-        insertFixup(new)
+        if (!noFixup)
+            insertFixup(new)
     }
 
     /**
