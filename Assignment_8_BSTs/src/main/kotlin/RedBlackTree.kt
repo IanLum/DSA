@@ -77,6 +77,7 @@ class RedBlackTree {
                     parent.color = Color.B
                     uncle.color = Color.B
                     grandparent.color = Color.R
+                    z = grandparent
                 }
                 else {
                     // Uncle is black, case 2 or 3
@@ -104,6 +105,7 @@ class RedBlackTree {
                     parent.color = Color.B
                     uncle.color = Color.B
                     grandparent.color = Color.R
+                    z = grandparent
                 }
                 else {
                     // Uncle is black, case 2 or 3
@@ -202,10 +204,8 @@ class RedBlackTree {
         while (queue.isNotEmpty()) {
             val curr = queue.removeFirst()
             if (curr.color == Color.R) {
-                if ((curr.left?.color == Color.R) or (curr.right?.color == Color.R)) {
-                    println(curr.value)
+                if ((curr.left?.color == Color.R) or (curr.right?.color == Color.R))
                     return false
-                }
             }
             curr.left?.let {
                 queue.add(it)
