@@ -218,6 +218,33 @@ class RedBlackTree {
     }
 
     /**
+     * Check that the path to any leaf node crosses the same number of black nodes, red black tree rule 4
+     * @return True if this rule is met, false otherwise
+     */
+    fun leafBlackDepth(): Boolean {
+        if (root == null)
+            return true
+        val queue = mutableListOf<Pair<Node, Int>>(Pair(root!!, 0))
+        val depths = mutableSetOf<Int>()
+        while (queue.isNotEmpty()) {
+            var (currNode, blackDepth) = queue.removeFirst()
+            if (currNode.color == Color.B)
+                blackDepth++
+
+            listOf(currNode.left, currNode.right).forEach { child ->
+                child?.let {
+                    queue.add(Pair(it, blackDepth))
+                } ?: also {
+                    depths.add(blackDepth)
+                    if (depths.size > 1)
+                        return false
+                }
+            }
+        }
+        return true
+    }
+
+    /**
      * Check red black tree rules
      * @return True if all rules are met, false if any rule is broken
      */
